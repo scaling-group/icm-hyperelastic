@@ -1,0 +1,2 @@
+_target_: src.datamodules.base_datamodule.BaseDataModule
+_partial_: true

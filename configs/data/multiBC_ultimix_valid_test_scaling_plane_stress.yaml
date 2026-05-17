@@ -1,0 +1,16 @@
+# for training scaling
+
+defaults:
+  - dataloader
+  - ice_share
+  - train:
+      - unify_material_multiBC_ultimix_plane_stress
+  - valid:
+      - valid_0_plane_stress
+      - valid_105_plane_stress
+      - valid_11_plane_stress
+      - valid_13D_1_20_plane_stress
+      - valid_13D_21_22_plane_stress
+  - test:
+      - none
+  - _self_

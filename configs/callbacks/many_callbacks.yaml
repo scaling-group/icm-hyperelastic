@@ -1,0 +1,13 @@
+defaults:
+  - model_summary
+  # - rich_progress_bar # somehow doesn't work with model restore
+  - print_model
+  - save_ckpt
+  - save_metric
+  - save_batch_info
+  - viz
+  - _self_
+
+# you can amend configs here, for example
+# model_summary:
+#   max_depth: -1

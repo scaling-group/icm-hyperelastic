@@ -1,0 +1,19 @@
+defaults:
+  # - model_checkpoint
+  # - early_stopping
+  - model_summary
+  # - rich_progress_bar
+  - print_model
+  - save_ckpt
+  - save_metric
+  - save_stress
+  - save_error
+  - save_query_mesh
+  - save_batch_info
+  - lr_monitor
+  # - fem
+  # - viz_stretchwise_err
+  # - viz_error
+  # - viz_scatter
+  # - viz_stressdistribute
+  # - _self_

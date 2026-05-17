@@ -1,0 +1,12 @@
+# prompt = query
+
+defaults:
+  - dataloader
+  - ice_share
+  - train:
+      - unify_material_multiBC_ultimix_plane_strain
+  - valid:
+      - valid_13D_21_22_FEM_plane_strain
+  - test:
+      - none
+  - _self_

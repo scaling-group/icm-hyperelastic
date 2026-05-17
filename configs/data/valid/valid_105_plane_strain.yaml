@@ -1,0 +1,25 @@
+valid_105:
+  name: valid_105
+  # different random seeds on materials, range from 5000 to 5399
+  # representing in-distribution validation
+  # Prompt: valid 105 (1 meshes), query valid 105 (same as prompt)
+
+  dataset:
+    _target_: src.datasets.ice.dataset_meshlist_multiBC.MeshListDataset
+    data_dir: ${data.data_multiBC_folder}/dataset-val105-pe
+    geometry_cfg: ['A', 'B', 'C', 'D', 'E', 'F', 'H']
+    material_cfg: "list(range(5000,5400))"
+    stretch_cfg: "list(range(1, 11))"
+    force_type_cfg: ['shear', 'uniaxial', 'biaxial']
+
+    num_geometries_in_pool: "7"  # will be eval()ed
+    num_stretches_in_pool: "10"  # will be eval()ed
+    num_force_types_in_pool: "3"  # will be eval()ed
+    num_meshes_from_pool: "1"  # will be eval()ed
+    base_seed: ${data.valid_base_seed}
+
+  num_workers: ${data.num_workers}
+  pin_memory: ${data.pin_memory}
+  batch_size_per_device: 1
+  enable_device_seed: ${data.valid_enable_device_seed}
+  base_seed: ${data.valid_base_seed}

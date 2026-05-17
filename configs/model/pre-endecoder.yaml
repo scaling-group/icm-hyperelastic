@@ -1,0 +1,51 @@
+_target_: src.models.ice.pre_endecoder.ICE_EnDecoder
+preprocessor:
+  _target_: src.models.ice.pre_endecoder.EquilUnitEncoder
+  pool: average
+  cls_mask: null
+  input_dim: ${model.params.prompt_dim}
+  projector:
+    _target_: torch.nn.Linear
+    in_features: ${model.params.prompt_dim}
+    out_features: ${model.params.d_model}
+  transformer:
+    _target_: src.models.base.transformer.TransformerEncoder
+    layer:
+      _target_: src.models.base.transformer.TransformerEncoderLayer
+      d_model: ${model.params.d_model}
+      nhead: ${model.params.nhead}
+      dim_feedforward: ${model.params.dim_feedforward}
+    num_layers: ${model.params.pre_num_layers}
+
+endecoder:
+  _target_: src.models.base.transformer.TransformerEnDecoder
+  layer:
+    _target_: src.models.base.transformer.TransformerDecoderLayer
+    d_model: ${model.params.d_model}
+    nhead: ${model.params.nhead}
+    dim_feedforward: ${model.params.dim_feedforward}
+  num_layers: ${model.params.end_num_layers}
+
+query_projector:
+  _target_: torch.nn.Linear
+  in_features: ${model.params.query_dim}
+  out_features: ${model.params.d_model}
+
+post_projector:
+  _target_: torch.nn.Linear
+  in_features: ${model.params.d_model}
+  out_features: ${model.params.output_dim}
+
+
+params:
+  prompt_dim: ???
+  query_dim: ???
+  output_dim: ???
+
+  d_model: ???
+  nhead: ???
+
+  pre_num_layers: ???
+  end_num_layers: ???
+
+  dim_feedforward: ???

@@ -1,0 +1,25 @@
+valid_13D_21_22:
+  name: valid_13D_21_22
+  # new material + new geometry + new boundary + larger stretch
+  # prompt: valid 13D (1 meshes), query same as prompt
+  # stretch from 1.05 to 1.1
+
+  dataset:
+    _target_: src.datasets.ice.dataset_meshlist_multiBC.MeshListDataset
+    data_dir: ${data.data_multiBC_folder}/dataset-val13D-ps
+    geometry_cfg: ['D0', 'D1', 'D2', 'D3', 'D4']
+    material_cfg: "list(range(0,100))+list(range(1000,1100))+list(range(2000,2200))+list(range(3000,3100))"
+    stretch_cfg: "list(range(21, 23))" # 1.05 to 1.1
+    force_type_cfg: ['U0', 'U1', 'B0', 'B1']
+
+    num_geometries_in_pool: "5"  # will be eval()ed
+    num_stretches_in_pool: "2"  # will be eval()ed
+    num_force_types_in_pool: "4"  # will be eval()ed
+    num_meshes_from_pool: "1"  # will be eval()ed
+    base_seed: ${data.valid_base_seed}
+
+  num_workers: ${data.num_workers}
+  pin_memory: ${data.pin_memory}
+  batch_size_per_device: 1
+  enable_device_seed: ${data.valid_enable_device_seed}
+  base_seed: ${data.valid_base_seed}

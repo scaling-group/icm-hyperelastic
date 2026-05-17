@@ -1,0 +1,26 @@
+output: grad_psi_grad_I
+prompt: equation
+
+scale_A: norm
+scale_XI: ["decenter", "std"]
+scale_A_in_loss: true
+
+# null/none represents ignore
+compute_flops: false
+loss_boundary_mode: pred_vs_label
+loss_boundary_filter: sign
+loss_boundary_weight: null
+loss_zero_weight: null
+loss_convex_weight: null
+
+# for post proprocess in valid/test
+calibrate_modes: ["pred_vs_label_mcal", "pred_vs_label_pcal"]
+
+eval_loss_eqn: false # can be false, if we want to skip eval loss_eqn
+eval_loss_zero: false
+eval_loss_convex: false
+
+eval_error_element: true # usually true, as we need prediction of stress
+eval_error_node: true # can be false, if we want to skip nodal force
+
+eval_mesh_ids: "[0]" # null if eval all meshes

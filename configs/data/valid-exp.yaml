@@ -1,0 +1,11 @@
+defaults:
+  - dataloader
+  - ice_share
+  - train:
+      - exp_no_training
+  - valid:
+      - valid_exp_mat1
+      - valid_exp_mat2
+  - test:
+      - none
+  - _self_

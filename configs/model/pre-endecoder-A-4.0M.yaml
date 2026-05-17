@@ -1,0 +1,20 @@
+defaults:
+  - pre-endecoder
+
+params:
+  prompt_dim: 6
+  query_dim: 2
+  output_dim: 2
+
+  d_model: 192
+  nhead: 6
+
+  pre_num_layers: 3
+  end_num_layers: 6
+
+  dim_feedforward: 768
+
+# 4,006,082 parameters in total
+# Forward pass FLOPs: 1,506,699,018,240
+# Loss FLOPs: 4,519,635,025,920
+# Average FLOPs: 4.557e12

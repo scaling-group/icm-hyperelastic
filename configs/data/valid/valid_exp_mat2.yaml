@@ -1,0 +1,45 @@
+valid_exp_mat2:
+  name: valid_exp_mat2
+  dataset:
+    _target_: src.datasets.ice.dataset_meshlist_multiBC.ParallelMeshListDataset
+    prompt_dataset:
+      _target_: src.datasets.ice.dataset_exp.ExpDataset
+      data_dir: ${data.data_multiBC_folder}/dataset-exp-test/exp-mat2
+      geometry_cfg:
+        _target_: src.datasets.ice.utils.GeometryConfig
+        cfg: ['3']
+      experiment_cfg:
+        _target_: src.datasets.ice.utils.ExperimentConfig
+        cfg: ['1', '2', '3']
+      stretch_cfg: "list(range(20, 220))" # 0.05 to 1.0
+
+      num_geometries_in_pool: "1"  # will be eval()ed
+      num_stretches_in_pool: "200"  # will be eval()ed
+      num_experiment_in_pool: "3"  # will be eval()ed
+      num_meshes_from_pool: "20"  # will be eval()ed all meshes
+      base_seed: ${data.valid_base_seed}
+
+    query_dataset:
+      _target_: src.datasets.ice.dataset_exp.ExpDataset
+      data_dir: ${data.data_multiBC_folder}/dataset-exp-test/exp-mat2
+      geometry_cfg:
+        _target_: src.datasets.ice.utils.GeometryConfig
+        cfg: ['valid']
+      experiment_cfg:
+        _target_: src.datasets.ice.utils.ExperimentConfig
+        cfg: ['1']
+      stretch_cfg: "list(range(0, 220))" # 0.05 to 1.0
+
+      num_geometries_in_pool: "1"  # will be eval()ed
+      num_stretches_in_pool: "220"  # will be eval()ed
+      num_experiment_in_pool: "1"  # will be eval()ed
+      num_meshes_from_pool: "220"  # will be eval()ed all meshes
+      base_seed: ${data.valid_base_seed}
+
+    scale_idxs: "[0]*220"
+
+  num_workers: ${data.num_workers}
+  pin_memory: ${data.pin_memory}
+  batch_size_per_device: 1
+  enable_device_seed: ${data.valid_enable_device_seed}
+  base_seed: ${data.valid_base_seed}

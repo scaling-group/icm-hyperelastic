@@ -1,0 +1,7 @@
+viz_stressdistribute:
+  _target_: src.callbacks.viz_stressdistribute.VizStressDistribute
+  dirpath: ${paths.output_dir}/viz_stressdistribute
+  valid_batches_local: "list(range(10))"
+  valid_batches_log: "list(range(10))"
+  test_batches_local: "list(range(10))"
+  test_batches_log: "list(range(10))"

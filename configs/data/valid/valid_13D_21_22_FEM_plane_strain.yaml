@@ -1,0 +1,45 @@
+valid_13D_21_22_FEM:
+  name: valid_13D_21_22_FEM
+  # new material + new geometry + new boundary + larger stretch
+  # stretch from 1.05 to 1.1
+
+  dataset:
+    _target_: src.datasets.ice.dataset_meshlist_multiBC.ParallelMeshListDataset
+    prompt_dataset:
+      _target_: src.datasets.ice.dataset_meshlist_multiBC.MeshListDataset
+      data_dir: ${data.data_multiBC_folder}/dataset-val13D-pe
+      geometry_cfg: ['D0', 'D1', 'D2', 'D4']
+      material_cfg: "list(range(0,5))+list(range(1000,1005))+list(range(2000,2005))+list(range(3000,3005))"
+      stretch_cfg: "list(range(1, 21))"
+      force_type_cfg: ['U1', 'B0', 'B1']
+
+      num_geometries_in_pool: "1"  # will be eval()ed
+      num_stretches_in_pool: "20"  # will be eval()ed
+      num_force_types_in_pool: "1"  # will be eval()ed
+      num_meshes_from_pool: "10"  # will be eval()ed
+      base_seed: ${data.valid_base_seed}
+
+    query_dataset:
+      _target_: src.datasets.ice.dataset_meshlist_multiBC.MeshListDataset
+      data_dir: ${data.data_multiBC_folder}/dataset-val13D-pe
+      geometry_cfg: ['D3']
+      material_cfg: "list(range(0,5))+list(range(1000,1005))+list(range(2000,2005))+list(range(3000,3005))"
+      stretch_cfg: "list(range(21, 23))"
+      force_type_cfg: ['U0']
+
+      num_geometries_in_pool: "1"  # will be eval()ed
+      num_stretches_in_pool: "2"  # will be eval()ed
+      num_force_types_in_pool: "1"  # will be eval()ed
+      num_meshes_from_pool: "1"  # will be eval()ed
+      base_seed: ${data.valid_base_seed}
+
+      # deterministic: true
+      mesh_idxs: "list(range(0, 1))"  # will be eval()ed
+
+    scale_idxs: "[0]*1"
+
+  num_workers: ${data.num_workers}
+  pin_memory: ${data.pin_memory}
+  batch_size_per_device: 1
+  enable_device_seed: ${data.valid_enable_device_seed}
+  base_seed: ${data.valid_base_seed}

@@ -1,0 +1,7 @@
+viz:
+  _target_: src.callbacks.viz.Viz
+  dirpath: ${paths.output_dir}/viz
+  valid_batches_local: "[0]"
+  valid_batches_log: "[0]"
+  test_batches_local: "[0]"
+  test_batches_log: "[0]"

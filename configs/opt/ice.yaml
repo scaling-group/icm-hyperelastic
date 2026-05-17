@@ -1,0 +1,6 @@
+defaults:
+  - muon
+
+# override just the learning rate
+optimizer:
+  lr: 5e-4

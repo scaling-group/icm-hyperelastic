@@ -1,0 +1,2 @@
+print_model:
+  _target_: src.callbacks.print_model.PrintModel

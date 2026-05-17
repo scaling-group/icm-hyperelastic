@@ -1,0 +1,10 @@
+defaults:
+  - train_ice # inherit all the configs
+  # overwrite existing configs by file names here
+  - override logger: ??? # e.g., [csv, wandb]
+  - _self_
+
+
+paths:
+   # specify the path to your data
+  data_dir: ??? # e.g., ${paths.root_dir}/data

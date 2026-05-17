@@ -1,0 +1,14 @@
+fem:
+  _target_: src.callbacks.fem.FEM
+  dirpath: ${paths.output_dir}/fem
+  valid_batches_local: "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]"
+  valid_batches_log: "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]"
+  u_displacement: 1.1
+  load_iter: 22
+  convergence_max_iter: 10
+  tol: 1.0e-6
+  data_dir: ${paths.data_dir}/ICE-elastic
+  dataset_type: "val13D"
+  mesh_type: "pe"
+  geometry_region: "[0.0, 1.0]"
+  # force_type: "uniaxial"

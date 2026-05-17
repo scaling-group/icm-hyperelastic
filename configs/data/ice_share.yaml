@@ -1,0 +1,6 @@
+data_folder: ${paths.data_dir}/LargeMaterialModel-Elastic
+data_multiBC_folder: ${paths.data_dir}/ICE-elastic
+
+train_batch_size_per_device: 32
+rotate: "no"
+flip: "no"

@@ -1,0 +1,2 @@
+_target_: src.datamodules.ice_datamodule.IceDataModule
+_partial_: true

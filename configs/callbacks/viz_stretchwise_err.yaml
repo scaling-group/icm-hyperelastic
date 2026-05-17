@@ -1,0 +1,7 @@
+viz_stretchwise_err:
+  _target_: src.callbacks.viz_stretchwise_err.VizStretchwiseErr
+  dirpath: ${paths.output_dir}/viz_stretchwise_err
+  valid_batches_local: "list(range(10))"
+  valid_batches_log: "list(range(10))"
+  test_batches_local: "list(range(10))"
+  test_batches_log: "list(range(10))"

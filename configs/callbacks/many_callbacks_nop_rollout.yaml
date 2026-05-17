@@ -1,0 +1,9 @@
+defaults:
+  - model_summary
+  - print_model
+  - save_ckpt
+  - save_metric
+  - save_batch_info
+  - viz_rollout_error
+  - viz_rollout_1d
+  - _self_

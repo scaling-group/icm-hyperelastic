@@ -1,0 +1,28 @@
+unify_material:
+
+  name: unify_material
+
+  dataset:
+    _target_: src.datasets.ice.dataset_eqn_multiBC.EquationDatasetMultiBC
+    data_dir: ${data.data_multiBC_folder}/dataset-train-ps
+    cache_dir: "cache_snapshot"
+    geometry_cfg: ['A', 'B', 'C', 'D', 'E', 'F', 'H']
+    material_cfg: "list(range(2000))"
+    stretch_cfg: "list(range(1, 11))"
+    force_type_cfg: ['shear', 'uniaxial', 'biaxial']
+
+    num_geometries_in_pool: "torch.randint(1, 8, ()).item()"  # will be eval()ed
+    num_stretches_in_pool: "torch.randint(1, 11, ()).item()"  # will be eval()ed
+    num_force_types_in_pool: "torch.randint(1, 4, ()).item()"  # will be eval()ed
+    num_meshes_from_pool: "torch.randint(1, 6, ()).item()"  # will be eval()ed
+    mode: eqn
+    num_eqns: null
+
+  geometry_loop: mix
+  eqns_per_prompt: [500, 1500]
+
+  num_workers: ${data.num_workers}
+  pin_memory: ${data.pin_memory}
+  batch_size_per_device: ${data.train_batch_size_per_device}
+  enable_device_seed: ${data.train_enable_device_seed}
+  base_seed: ${data.train_base_seed}

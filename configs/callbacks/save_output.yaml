@@ -1,0 +1,5 @@
+save_output:
+  _target_: src.callbacks.save_output.SaveOutput
+  dirpath: ${paths.output_dir}/output
+  valid_batches_local: "[0]"
+  test_batches_local: "[0]"
