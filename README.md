@@ -1,7 +1,7 @@
 <h1 align="center">In-context modeling</h1>
 
 <h3 align="center">
-  Retrain-free foundation modeling for computational science
+  In-context learning as a retraining-free paradigm for constitutive modeling
 </h3>
 
 <p align="center">
