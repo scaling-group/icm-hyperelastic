@@ -5,12 +5,12 @@
 </h3>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2604.23098"><strong>In-context modeling as a retrain-free paradigm for foundation models in computational science</strong></a>
+  <a href="https://doi.org/10.1073/pnas.2620983123"><strong>Proc. Natl. Acad. Sci. U.S.A. 123 (44), e2620983123 (2026)</strong></a>
 </p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2604.23098"><img src="https://img.shields.io/badge/arXiv-2604.23098-b31b1b.svg" alt="arXiv:2604.23098"></a>
-  <a href="https://arxiv.org/pdf/2604.23098"><img src="https://img.shields.io/badge/Paper-PDF-red.svg" alt="Paper PDF"></a>
+  <a href="https://doi.org/10.1073/pnas.2620983123"><img src="https://img.shields.io/badge/PNAS-10.1073%2Fpnas.2620983123-1f4e79.svg" alt="PNAS DOI: 10.1073/pnas.2620983123"></a>
+  <a href="https://www.pnas.org/doi/pdf/10.1073/pnas.2620983123"><img src="https://img.shields.io/badge/Paper-PDF-red.svg" alt="Paper PDF"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/-Python_3.11-blue?logo=python&logoColor=white" alt="Python 3.11"></a>
   <a href="https://hydra.cc/"><img src="https://img.shields.io/badge/Config-Hydra_1.3-89b8cd" alt="Hydra 1.3"></a>
   <a href="https://lightning.ai/"><img src="https://img.shields.io/badge/Training-Lightning_2.5-792EE5" alt="Lightning 2.5"></a>
@@ -28,11 +28,15 @@ We demonstrate the idea on hyperelasticity, where a single model generalizes acr
 
 ## Paper
 
-This repository accompanies the arXiv preprint:
+This repository accompanies the paper published in *Proceedings of the National Academy of Sciences* (PNAS):
 
-**[In-context modeling as a retrain-free paradigm for foundation models in computational science](https://arxiv.org/abs/2604.23098)**
+**[In-context learning as a retraining-free paradigm for constitutive modeling](https://doi.org/10.1073/pnas.2620983123)**
 
-Lingfeng Li, Zhuoyuan Li, Shun Li, Kaixin Zhan, Huajian Gao, Changqing Chen, and Liu Yang.
+Lingfeng Li, Zhuoyuan Li, Shun Li, Kaixin Zhan, Huajian Gao, Chang Qing Chen, and Liu Yang.
+
+*Proc. Natl. Acad. Sci. U.S.A.* **123** (44), e2620983123 (2026). https://doi.org/10.1073/pnas.2620983123
+
+An earlier preprint version is available on [arXiv:2604.23098](https://arxiv.org/abs/2604.23098).
 
 ## Overview
 
@@ -171,12 +175,14 @@ Download, decompression, folder layout, and preprocessing notes will be provided
 
 ```bibtex
 @article{li2026incontext,
-  title = {In-context modeling as a retrain-free paradigm for foundation models in computational science},
-  author = {Li, Lingfeng and Li, Zhuoyuan and Li, Shun and Zhan, Kaixin and Gao, Huajian and Chen, Changqing and Yang, Liu},
+  title = {In-context learning as a retraining-free paradigm for constitutive modeling},
+  author = {Li, Lingfeng and Li, Zhuoyuan and Li, Shun and Zhan, Kaixin and Gao, Huajian and Chen, Chang Qing and Yang, Liu},
+  journal = {Proceedings of the National Academy of Sciences},
+  volume = {123},
+  number = {44},
+  pages = {e2620983123},
   year = {2026},
-  url = {https://arxiv.org/abs/2604.23098},
-  eprint = {2604.23098},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CE}
+  doi = {10.1073/pnas.2620983123},
+  url = {https://doi.org/10.1073/pnas.2620983123}
 }
 ```
