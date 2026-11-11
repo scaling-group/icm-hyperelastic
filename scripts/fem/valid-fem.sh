@@ -21,7 +21,7 @@ conda activate fenicsproject
 python src/train.py logger=[csv,wandb]\
  model=pre-endecoder-A-4.0M \
  train=False \
- paths.restore_ckpts=["/scratch/lingfli/ice-dev/logs/train_scaling_plane_strain/runs/4.0M-340K/checkpoints/last.ckpt"] \
+ paths.restore_ckpts=["checkpoints/scaling_model/plane_strain/4.0M-340K/last.ckpt"] \
  data=multiBC_ultimix_valid_fem \
  callbacks=ice_fem \
  task_name="test_fem_plane_strain"

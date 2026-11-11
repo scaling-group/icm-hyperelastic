@@ -60,6 +60,8 @@ def pool_calibrate_scales(raw_scales: list[list[dict]], mode: str) -> tuple[list
     # the calculated scales for each mesh, each boundary
     if "pred_vs_label" in mode:
         scales = [[bc["pred_force"] / bc["label_force"] for bc in mesh] for mesh in raw_scales]
+    elif "label_vs_pred" in mode:
+        scales = [[bc["label_force"] / bc["pred_force"] for bc in mesh] for mesh in raw_scales]
     else:
         raise ValueError(f"Got unknown pred label calibration mode: {mode}")
 
@@ -70,15 +72,34 @@ def pool_calibrate_scales(raw_scales: list[list[dict]], mode: str) -> tuple[list
         scales_mean_flat = torch.mean(scales_ratio_flat, dim=1)  # (bs,)
         if "pred_vs_label" in mode:
             pooled_scales_tensor = 1 / scales_mean_flat
+            pooled_scales_std = torch.std(1 / scales_ratio_flat, dim=1)
+        elif "label_vs_pred" in mode:
+            pooled_scales_tensor = scales_mean_flat
             pooled_scales_std = torch.std(scales_ratio_flat, dim=1)
         else:
             raise ValueError(f"Got unknown pred label calibration mode: {mode}")
         pooled_scales = [pooled_scales_tensor] * num_meshes
         scales_std = [pooled_scales_std] * num_meshes
+
+    elif "mcal" in mode:
+        pooled_scales = []
+        scales_std = []
+        for mesh_ratio in scales_ratio:
+            mean_mesh = torch.mean(mesh_ratio, dim=1)
+            if "pred_vs_label" in mode:
+                pooled = 1 / mean_mesh
+                std_mesh = torch.std(1 / mesh_ratio, dim=1)
+            elif "label_vs_pred" in mode:
+                pooled = mean_mesh
+                std_mesh = torch.std(mesh_ratio, dim=1)
+            else:
+                raise ValueError(f"Got unknown pred label calibration mode: {mode}")
+            pooled_scales.append(pooled)
+            scales_std.append(std_mesh)
     else:
         raise ValueError(f"Got unknown calibration mode: {mode}")
 
-    scales_rel_std = [std / ((1 / mean) + 1e-6) for mean, std in zip(pooled_scales, scales_std, strict=True)]
+    scales_rel_std = [std / (mean + 1e-6) for mean, std in zip(pooled_scales, scales_std, strict=True)]
 
     return pooled_scales, scales_ratio, scales_rel_std  # [(bs,)] * meshes, [(bs, n_bc)] * meshes, [(bs,)] * meshes
 
