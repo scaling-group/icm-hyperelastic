@@ -163,6 +163,22 @@ These scripts are grouped by experiment family:
 - `scripts/fem/`: FEM workflows.
 - `scripts/embedding/`: embedding and representation analysis.
 
+### 3. Experimental validation
+
+`scripts/experiment/valid-exp.sh` evaluates the plane-stress model on the experimental data (`dataset-exp-test`, see [Data](#data)). The context consists of DIC strain fields measured on perforated specimens of three geometries (three tests each), and the query is a uniaxial test of a standard dog-bone specimen.
+
+By default (`configs/data/valid/valid_exp_mat*.yaml`) the context is sampled from all three geometries, as in the main text. The Supplementary Information repeats the prediction with one geometry at a time to show that the result does not depend on the specimen geometry. To run this, restrict the context to one geometry, e.g. geometry 3:
+
+```sh
+python src/train.py ... data=valid-exp \
+  "data.valid.valid_exp_mat1.dataset.prompt_dataset.geometry_cfg.cfg=['3']" \
+  "data.valid.valid_exp_mat1.dataset.prompt_dataset.num_geometries_in_pool='1'" \
+  "data.valid.valid_exp_mat2.dataset.prompt_dataset.geometry_cfg.cfg=['3']" \
+  "data.valid.valid_exp_mat2.dataset.prompt_dataset.num_geometries_in_pool='1'"
+```
+
+The number of context strain fields is set by `prompt_dataset.num_meshes_from_pool`, and the random sampling of the context by `data.valid_base_seed`.
+
 ## Data
 
 The datasets are not bundled with the repository. They are released on Hugging Face as `.tar.zst` archives:
