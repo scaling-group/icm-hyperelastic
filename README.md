@@ -112,7 +112,7 @@ pip install lightning
 pip install numpy pandas h5py seaborn matplotlib
 pip install hydra-core hydra-colorlog rootutils rich
 pip install wandb mlflow
-pip install tabulate einops
+pip install tabulate einops optree frozendict
 pip install pre-commit ruff yamllint
 ```
 
@@ -132,7 +132,7 @@ If `configs/train_custom.yaml` exists, `src/train.py` will use it automatically.
 cp configs/train_custom.example.yaml configs/train_custom.yaml
 ```
 
-Then set `paths.data_dir` to the directory containing the ICE datasets.
+Then set `paths.data_dir` to the directory that contains the `ICE-elastic/` folder (see [Data](#data)), e.g. `${paths.root_dir}/data`.
 
 You can also override the path directly from the command line:
 
@@ -165,11 +165,41 @@ These scripts are grouped by experiment family:
 
 ## Data
 
-The datasets are not bundled with the repository. They will be released through Hugging Face:
+The datasets are not bundled with the repository. They are released on Hugging Face as `.tar.zst` archives:
 
 **[scaling-group/icm-hyperelastic](https://huggingface.co/datasets/scaling-group/icm-hyperelastic)**
 
-Download, decompression, folder layout, and preprocessing notes will be provided with the dataset release.
+| Archive | Used as | Configs |
+| --- | --- | --- |
+| `dataset-train-pe` / `dataset-train-ps` | Training set (plane strain / plane stress) | `data/train/*`, `data/valid/valid_0_*` |
+| `dataset-val105-pe` / `-ps` | Test-ID | `data/valid/valid_105_*` |
+| `dataset-val11-pe` / `-ps` | Test-M | `data/valid/valid_11_*` |
+| `dataset-val13D-pe` / `-ps` | Test-MGL and Test-MGL+ | `data/valid/valid_13D_*` |
+| `dataset-exp-test` | Experimental validation (two materials) | `data/valid/valid_exp_*` |
+
+Download the archives and extract them into a folder named `ICE-elastic`:
+
+```sh
+hf download scaling-group/icm-hyperelastic --repo-type dataset --local-dir data/archives
+mkdir -p data/ICE-elastic
+for f in data/archives/*.tar.zst; do tar -I zstd -xf "$f" -C data/ICE-elastic; done
+```
+
+This gives the layout the configs expect, with `paths.data_dir=${paths.root_dir}/data`:
+
+```text
+data/ICE-elastic/
+├── dataset-train-pe/Model-A/Model-A-shear-Poly-00000/{mesh.json, nodeX.npy, nodeU.npy, ...}
+├── dataset-val105-pe/Model-A/Model-A-shear-00200/...
+├── ...
+└── dataset-exp-test/{exp-mat1,exp-mat2}/
+```
+
+Notes:
+
+- Keep the folder name `ICE-elastic`; the data loaders use it to resolve file paths.
+- The archives contain the raw simulation data only. On first use, the data loaders write preprocessed caches (`cache/`, `cache_snapshot/`) and sampled-context records into each dataset folder, so the folder must be writable. The caches take much more disk space than the archives (for example, about 60 GB for `dataset-val11-pe`), and building them the first time takes a while.
+- Except for the experimental validation, which uses the plane-stress data, the results in the paper use the plane-strain (`pe`) data.
 
 ## Citation
 

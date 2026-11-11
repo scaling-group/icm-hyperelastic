@@ -450,7 +450,7 @@ def to_eqn(mesh_list: DataMeshList) -> DataEqn:
 
 if __name__ == "__main__":
     # Test the DataMesh class
-    data_dir = Path("/home/xxx/MyProjects/ice-dev/data/ICE-elastic/dataset-2504-sample")
+    data_dir = Path("data/ICE-elastic/dataset-2504-sample")
     # Model-H-shear-Poly-01300
     g_id = "H"
     f_id = "shear"

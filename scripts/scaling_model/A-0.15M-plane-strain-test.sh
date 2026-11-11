@@ -29,7 +29,7 @@ uv tree
 uv run python src/train.py logger=[csv,wandb] \
  model=pre-endecoder-A-0.15M \
  train=False \
- paths.restore_ckpts=["/scratch/lingfli/ice-dev/logs/train_scaling_plane_strain/runs/0.15M-1740K/checkpoints/last.ckpt"] \
+ paths.restore_ckpts=["checkpoints/scaling_model/plane_strain/0.15M-1740K/last.ckpt"] \
  data=multiBC_ultimix_valid_test_scaling_plane_strain \
  task_name="test_scaling_plane_strain"
 

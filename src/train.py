@@ -1,3 +1,4 @@
+import inspect
 import os
 from pathlib import Path
 from typing import Any
@@ -122,11 +123,15 @@ def train(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     for ckpt_path in ckpt_paths:
         log.info(f"Found checkpoint: {ckpt_path}")
 
+    # The checkpoints store numpy scalars, which torch>=2.6 refuses to unpickle when
+    # Lightning>=2.6 loads with weights_only=True. Load them in full on versions that accept the flag.
+    load_kwargs = {"weights_only": False} if "weights_only" in inspect.signature(trainer.fit).parameters else {}
+
     if cfg.train:
         log.info("Entering training mode...")
         for ckpt_path in ckpt_paths:
             log.info(f"Fitting model with ckpt_path: {ckpt_path}")
-            trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+            trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path, **load_kwargs)
     else:
         log.info("Entering validation mode...")
         # prepare dataloaders to avoid dataloader re-init
@@ -142,9 +147,10 @@ def train(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
                 train_dataloaders=train_dataloader,
                 val_dataloaders=valid_dataloaders,
                 ckpt_path=ckpt_path,
+                **load_kwargs,
             )
             log.info("Running trainer.validate() for validation.")
-            trainer.validate(model=model, dataloaders=valid_dataloaders, ckpt_path=ckpt_path)
+            trainer.validate(model=model, dataloaders=valid_dataloaders, ckpt_path=ckpt_path, **load_kwargs)
     return {}, {}
 
 
